@@ -1,3 +1,4 @@
+#!/usr/bin/env Rscript
 ################################
 ## Data set:
 ## 83 cell lines, 17419 genes
@@ -10,7 +11,7 @@ require('kernlab')
 
 ## Plain correlation
 ## No need to normalize
-read.table('gex.csv',sep=",",header=T,row.names=1)->x
+read.table('../../data/originals/gex.csv',sep=",",header=T,row.names=1)->x
 cor(x,method="spearman")->cls_corr
 
 # Add MDA-MB-175-VII
@@ -27,7 +28,8 @@ aux[53,53]=1
 colnames(aux)[53]="NCI-H1437"
 rownames(aux)[53]="NCI-H1437"
 cls_corr=aux
-write.table(cls_corr,file="genes_corr.tsv",col.names=F,row.names=F,sep="\t",quote=F)
+write.table(cls_corr,file="../../data/round1/kernels/genes_corr.tsv",
+            col.names=F,row.names=F,sep="\t",quote=F)
 
 ## Distance matrix
 ## Range is not between 0-1
@@ -62,29 +64,30 @@ aux[53,53]=1
 colnames(aux)[53]="NCI-H1437"
 rownames(aux)[53]="NCI-H1437"
 dot_product=aux
-write.table(dot_product,file="genes_dot_product.tsv",col.names=F,row.names=F,sep="\t",quote=F)
+write.table(dot_product,file="../../data/round1/kernels/genes_dot_product.tsv",
+            col.names=F,row.names=F,sep="\t",quote=F)
 
 ## Gaussian kernel
 # Normalization
-x_norm=matrix(0,nrow=nrow(x),ncol=ncol(x))
-colnames(x_norm)=colnames(x)
-rownames(x_norm)=rownames(x)
-for(i in 1:ncol(x))
-{
-    x_norm[,i]=normalize(x[,i])
-}
-# kernel
-gaussian_kernel=matrix(0,nrow=ncol(x),ncol=ncol(x))
-rbf=rbfdot(sigma = 1)
-colnames(gaussian_kernel)=colnames(x)
-rownames(gaussian_kernel)=colnames(x)
-## Gaussian kernel sigma=1
-for(i in 1:nrow(gaussian_kernel))
-{
-    for(j in 1:ncol(gaussian_kernel))
-    {
-        gaussian_kernel[i,j]=rbf(x_norm[,i],x_norm[,j])
-    }   
-}
+#x_norm=matrix(0,nrow=nrow(x),ncol=ncol(x))
+#colnames(x_norm)=colnames(x)
+#rownames(x_norm)=rownames(x)
+#for(i in 1:ncol(x))
+#{
+#    x_norm[,i]=normalize(x[,i])
+#}
+## kernel
+#gaussian_kernel=matrix(0,nrow=ncol(x),ncol=ncol(x))
+#rbf=rbfdot(sigma = 1)
+#colnames(gaussian_kernel)=colnames(x)
+#rownames(gaussian_kernel)=colnames(x)
+### Gaussian kernel sigma=1
+#for(i in 1:nrow(gaussian_kernel))
+#{
+#    for(j in 1:ncol(gaussian_kernel))
+#    {
+#        gaussian_kernel[i,j]=rbf(x_norm[,i],x_norm[,j])
+#    }   
+#}
 
 
