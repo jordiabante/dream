@@ -13,5 +13,6 @@ Clonning the repo
 
 Dependancies
 -----------------
-Add dependancies here so everyone is aware of the required libraries.
-
+* R{SpatialEpi}
+* R{kernlab}
+* R{BioPhysConnectoR}
