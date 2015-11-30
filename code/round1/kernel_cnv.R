@@ -4,7 +4,7 @@ library(SpatialEpi)
 library(kernlab)
 library(BioPhysConnectoR)
 
-cnv_segment = read.table(file='../../data/originals/cnv_segment.csv.gz',sep=",")
+cnv_segment = read.table(file='../../data/originals/cnv_segment.csv.gz',sep=",",header=TRUE)
 
 attach(cnv_segment)
 cell_line_org = unique(cell_line_name)
