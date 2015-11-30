@@ -1,7 +1,6 @@
 Description
 ------------------
 Pipeline developed at Texas A&M University for DREAM challenge.
-Shuilian.
 
 Workflow
 ------------------
