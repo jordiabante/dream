@@ -28,7 +28,7 @@ aux[53,53]=1
 colnames(aux)[53]="NCI-H1437"
 rownames(aux)[53]="NCI-H1437"
 cls_corr=aux
-write.table(cls_corr,file="../../data/round1/kernels/genes_corr.tsv",
+write.table(cls_corr,file="../../data/round1/kernels/corr_genes.tsv",
             col.names=F,row.names=F,sep="\t",quote=F)
 
 ## Distance matrix
@@ -64,7 +64,7 @@ aux[53,53]=1
 colnames(aux)[53]="NCI-H1437"
 rownames(aux)[53]="NCI-H1437"
 dot_product=aux
-write.table(dot_product,file="../../data/round1/kernels/genes_dot_product.tsv",
+write.table(dot_product,file="../../data/round1/kernels/dot_product_genex.tsv",
             col.names=F,row.names=F,sep="\t",quote=F)
 
 ## Gaussian kernel
