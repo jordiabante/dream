@@ -1,0 +1,24 @@
+Description:
+    Wrapper for DREAM challenge R code.
+
+Usage:
+	dream.sh  [OPTIONS]  --
+
+Options:
+    -h--help                  Help.
+    -k--whatever              Whatever parameter. Default: NA.
+
+Examples:
+    dream.sh -k 20 -- whatever arguments
+
+Dependancies:
+    R{SpatialEpi}
+    R{kernlab}
+    R{BioPhysConnectoR}
+
+Date:
+    2015/11/30
+
+Author:
+    Jordi Abante <abante.jordi@gmail.com>
+    https://jordiabante.wordpress.com

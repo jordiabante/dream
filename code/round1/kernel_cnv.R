@@ -1,10 +1,10 @@
+#!/usr/bin/env Rscript
+
 library(SpatialEpi)
 library(kernlab)
 library(BioPhysConnectoR)
 
-cnv_gene = read.csv('cnv_gene.csv')
-cnv_segment = read.csv('cnv_segment.csv')
-therapy = read.csv('therapy.csv')
+cnv_segment = read.table(file='../../data/originals/cnv_segment.csv.gz',sep=",")
 
 attach(cnv_segment)
 cell_line_org = unique(cell_line_name)
@@ -69,17 +69,17 @@ for(i in 1:85)
 cor_matdf = as.data.frame(cor_mat)
 colnames(cor_matdf) = cell_line
 rownames(cor_matdf) = cell_line
-write.csv(cor_matdf, 'cor_mat.csv')
+write.csv(cor_matdf, '../../data/round1/kernels/corr_cnv.csv')
 
 dotprod_kerneldf = as.data.frame(dotprod_kernel)
 colnames(dotprod_kerneldf) = cell_line
 rownames(dotprod_kerneldf) = cell_line
-write.csv(dotprod_kerneldf, 'dotprod_kernel.csv')
+write.csv(dotprod_kerneldf, '../../data/round1/kernels/dot_product_cnv.csv')
 
 rbf_kerneldf = as.data.frame(rbf_kernel)
 colnames(rbf_kerneldf) = cell_line
 rownames(rbf_kerneldf) = cell_line
-write.csv(rbf_kerneldf, 'rbf_kernel.csv')
+write.csv(rbf_kerneldf, '../../data/round1/kernels/rbf_cnv.csv')
 
 
 
