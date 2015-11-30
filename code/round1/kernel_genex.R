@@ -11,7 +11,7 @@ require('kernlab')
 
 ## Plain correlation
 ## No need to normalize
-read.table('../../data/originals/gex.csv',sep=",",header=T,row.names=1)->x
+read.table('../../data/originals/gex.csv.gz',sep=",",header=T,row.names=1)->x
 cor(x,method="spearman")->cls_corr
 
 # Add MDA-MB-175-VII
