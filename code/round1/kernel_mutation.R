@@ -1,3 +1,5 @@
+#!/usr/bin/env Rscript
+
 
 kernel_mutation <- function(mytable){
   header_information <- names(mytable)
@@ -15,7 +17,8 @@ kernel_mutation <- function(mytable){
       my_feature[i,as.integer(my_data_frame[index[j],1])] <- 1
     }
   }
-  write.csv(my_feature,"mutation_feature (simple v.1).csv")
+  write.table(my_feature,file="../../data/round1/features/mutations_features.csv",
+              sep=",",quote=F,col.names=F,row.names=F)
   
   # inner product
   my_kernel <- matrix(0,nrow = length(cell_line_level),ncol = length(cell_line_level))
@@ -24,15 +27,16 @@ kernel_mutation <- function(mytable){
       my_kernel[i,j] <- (my_feature[i,] %*% my_feature[j,])/(norm(my_feature[i,],"2")*norm(my_feature[j,],"2"))
     }
   }
-  write.csv(my_kernel,"kernel_mutation (inner product)(simple v.1).csv")
+  write.table(my_kernel,file="../../data/round1/kernels/dot_product_mutations.csv",
+              sep=",",quote=F,col.names=F,row.names=F)
   
   # correlation
   my_kernel_2 <- cor(t(my_feature))
   
-  write.csv(my_kernel_2,"kernel_mutation (corr product)(simple v.1).csv")
+  write.table(my_kernel_2,file="../../data/round1/kernels/corr_mutations.csv",
+              sep=",",quote=F,col.names=F,row.names=F)
 }
 
 
-
-
-
+mutation_data=read.table('../../data/originals/mutations.csv.gz',sep=",",header=T)
+kernel_mutation(mutation_data)

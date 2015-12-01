@@ -50,9 +50,9 @@ done
 
 
 # Run all R scripts to obtain kernels in parallel
-kernel_genex.R
-kernel_cnv.R
-#kernel_mutation.R
+kernel_genex.R &
+kernel_cnv.R &
+kernel_mutation.R &
 #kernel_methylation.R
 
-#wait %1 %2 %3 %4 || exit $?
+wait %1 %2 %3 || exit $?

@@ -1,8 +1,8 @@
 Description:
-    Wrapper for DREAM challenge R code.
+    Wrapper to generate kernels from all the data sets.
 
 Usage:
-	dream.sh  [OPTIONS]  --
+	dream_kernels.sh  [OPTIONS]  --
 
 Options:
     -h--help                  Help.

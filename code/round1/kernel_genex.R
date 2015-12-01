@@ -28,7 +28,7 @@ aux[53,53]=1
 colnames(aux)[53]="NCI-H1437"
 rownames(aux)[53]="NCI-H1437"
 cls_corr=aux
-write.table(cls_corr,file="../../data/round1/kernels/corr_genes.tsv",
+write.table(cls_corr,file="../../data/round1/kernels/corr_genex.tsv",
             col.names=F,row.names=F,sep="\t",quote=F)
 
 ## Distance matrix
@@ -36,6 +36,20 @@ write.table(cls_corr,file="../../data/round1/kernels/corr_genes.tsv",
 as.matrix(dist(t(x),diag=T,upper=T,method="euclidean"))->cls_dist
 
 ## Kernel
+# Get variance across cell lines for each gene
+variances=matrix(0,nrow=nrow(x),ncol=2)
+for(i in 1:nrow(x))
+{
+    variances[i,1]=var(as.numeric(x[i,]))
+    variances[i,2]=rownames(x[i,])
+}
+# Rank genes based on variance
+variances=variances[order(as.numeric(variances[,1]),decreasing=TRUE),]
+
+# Get 10% genes with more differences
+indexes=variances[1:(0.01*nrow(variances)),2]
+x=x[indexes,]
+
 ## Dot product
 dot_product=matrix(0,nrow=ncol(x),ncol=ncol(x))
 colnames(dot_product)=colnames(x)
