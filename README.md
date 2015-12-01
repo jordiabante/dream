@@ -16,3 +16,4 @@ Dependancies
 * R{SpatialEpi}
 * R{kernlab}
 * R{BioPhysConnectoR}
+* R{Matrix}
