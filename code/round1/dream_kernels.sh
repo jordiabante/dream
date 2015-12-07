@@ -53,17 +53,17 @@ done
 ./R/kernel_genex.R &
 ./R/kernel_cnv.R &
 ./R/kernel_mutation.R &
-#kernel_methylation.R
+./R/kernel_methylation.R &
 
-wait %1 %2 %3 || exit $?
+wait %1 %2 %3 %4 || exit $?
 
 # Run general kernels for training and test data
-./R/kernel_general.R ../../data/originals/ch1_leaderBoard_monoTherapy.csv \
-    ../../data/originals/ch1_train_combination_and_monoTherapy.csv \
-    ../../data/round1/kernels/dot_product_genex.tsv \
-    ../../data/round1/kernels/dot_product_drugs.csv \
-    ../../data/originals/cell_line_order.csv \
-    ../../data/originals/drug_comb_name.csv \
-    genex
+#./R/kernel_general.R ../../data/originals/ch1_leaderBoard_monoTherapy.csv \
+#    ../../data/originals/ch1_train_combination_and_monoTherapy.csv \
+#    ../../data/round1/kernels/dot_product_genex.tsv \
+#    ../../data/round1/kernels/dot_product_drugs.csv \
+#    ../../data/originals/cell_line_order.csv \
+#    ../../data/originals/drug_comb_name.csv \
+#    genex
     
 

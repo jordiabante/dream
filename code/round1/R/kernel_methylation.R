@@ -1,9 +1,9 @@
 #!/usr/bin/env Rscript
-################################
+####################################
 ## Data set:
-## 83 cell lines, 17419 genes
-## Missing cell lines: MDA-MB-175-VII and NCI-H1437
-################################
+## 84 cell lines, 104426 CpG shores
+## Missing cell lines:
+####################################
 
 ## Dependancies
 #require('SpatialEpi')
@@ -11,29 +11,26 @@ require('kernlab')
 
 ## Plain correlation
 ## No need to normalize
-read.table('../../data/originals/gex.csv.gz',sep=",",header=T,row.names=1)->x
+read.table('../../data/originals/methylation.csv.gz',sep=",",header=T,row.names=1,fill=TRUE)->x
+x=x[complete.cases(x),]
 cor(x,method="spearman")->cls_corr
 
 # Add MDA-MB-175-VII
-aux=rbind(cls_corr[1:43,],rep(-1,83),cls_corr[44:83,])
-aux=cbind(aux[,1:43],rep(-1,84),aux[,44:83])
-aux[44,44]=1
-colnames(aux)[44]="MDA-MB-175-VII"
-rownames(aux)[44]="MDA-MB-175-VII"
-cls_corr=aux
-# Add NCI-H1437
-aux=rbind(cls_corr[1:52,],rep(-1,84),cls_corr[53:84,])
-aux=cbind(aux[,1:52],rep(-1,85),aux[,53:84])
-aux[53,53]=1
-colnames(aux)[53]="NCI-H1437"
-rownames(aux)[53]="NCI-H1437"
-cls_corr=aux
-write.table(cls_corr,file="../../data/round1/kernels/corr_genex.tsv",
+#aux=rbind(cls_corr[1:43,],rep(-1,83),cls_corr[44:83,])
+#aux=cbind(aux[,1:43],rep(-1,84),aux[,44:83])
+#aux[44,44]=1
+#colnames(aux)[44]="MDA-MB-175-VII"
+#rownames(aux)[44]="MDA-MB-175-VII"
+#cls_corr=aux
+## Add NCI-H1437
+#aux=rbind(cls_corr[1:52,],rep(-1,84),cls_corr[53:84,])
+#aux=cbind(aux[,1:52],rep(-1,85),aux[,53:84])
+#aux[53,53]=1
+#colnames(aux)[53]="NCI-H1437"
+#rownames(aux)[53]="NCI-H1437"
+#cls_corr=aux
+write.table(cls_corr,file="../../data/round1/kernels/corr_methylation.txt",
             col.names=F,row.names=F,sep="\t",quote=F)
-
-## Distance matrix
-## Range is not between 0-1
-as.matrix(dist(t(x),diag=T,upper=T,method="euclidean"))->cls_dist
 
 ## Kernel
 # Get variance across cell lines for each gene
@@ -47,7 +44,7 @@ for(i in 1:nrow(x))
 variances=variances[order(as.numeric(variances[,1]),decreasing=TRUE),]
 
 # Get 10% genes with more differences
-indexes=variances[1:(0.01*nrow(variances)),2]
+indexes=variances[1:(0.1*nrow(variances)),2]
 x=x[indexes,]
 
 ## Dot product
@@ -65,20 +62,20 @@ for(i in 1:ncol(x))
     }
 }
 # Add MDA-MB-175-VII
-aux=rbind(dot_product[1:43,],rep(-1,83),dot_product[44:83,])
-aux=cbind(aux[,1:43],rep(-1,84),aux[,44:83])
-aux[44,44]=1
-colnames(aux)[44]="MDA-MB-175-VII"
-rownames(aux)[44]="MDA-MB-175-VII"
-dot_product=aux
-# Add NCI-H1437
-aux=rbind(dot_product[1:52,],rep(-1,84),dot_product[53:84,])
-aux=cbind(aux[,1:52],rep(-1,85),aux[,53:84])
-aux[53,53]=1
-colnames(aux)[53]="NCI-H1437"
-rownames(aux)[53]="NCI-H1437"
-dot_product=aux
-write.table(dot_product,file="../../data/round1/kernels/dot_product_genex.tsv",
+#aux=rbind(dot_product[1:43,],rep(-1,83),dot_product[44:83,])
+#aux=cbind(aux[,1:43],rep(-1,84),aux[,44:83])
+#aux[44,44]=1
+#colnames(aux)[44]="MDA-MB-175-VII"
+#rownames(aux)[44]="MDA-MB-175-VII"
+#dot_product=aux
+## Add NCI-H1437
+#aux=rbind(dot_product[1:52,],rep(-1,84),dot_product[53:84,])
+#aux=cbind(aux[,1:52],rep(-1,85),aux[,53:84])
+#aux[53,53]=1
+#colnames(aux)[53]="NCI-H1437"
+#rownames(aux)[53]="NCI-H1437"
+#dot_product=aux
+write.table(dot_product,file="../../data/round1/kernels/dot_product_methylation.txt",
             col.names=F,row.names=F,sep="\t",quote=F)
 
 ## Gaussian kernel
