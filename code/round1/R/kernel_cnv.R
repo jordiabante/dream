@@ -69,17 +69,17 @@ for(i in 1:85)
 cor_matdf = as.data.frame(cor_mat)
 colnames(cor_matdf) = cell_line
 rownames(cor_matdf) = cell_line
-write.csv(cor_matdf, '../../data/round1/kernels/corr_cnv.csv')
+write.table(cor_matdf,file='../../data/round1/kernels/corr_cnv.csv',col.names=F,row.names=F,sep="\t",quote=F)
 
-dotprod_kerneldf = as.data.frame(dotprod_kernel)
+dotprod_kerneldf = as.data.frame(dotprod_kernel,col.names=F,row.names=F,sep="	",quote=F)
 colnames(dotprod_kerneldf) = cell_line
 rownames(dotprod_kerneldf) = cell_line
-write.csv(dotprod_kerneldf, '../../data/round1/kernels/dot_product_cnv.csv')
+write.table(dotprod_kerneldf,file='../../data/round1/kernels/dot_product_cnv.csv',col.names=F,row.names=F,sep="\t",quote=F)
 
-rbf_kerneldf = as.data.frame(rbf_kernel)
+rbf_kerneldf = as.data.frame(rbf_kernel,col.names=F,row.names=F,sep="	",quote=F)
 colnames(rbf_kerneldf) = cell_line
 rownames(rbf_kerneldf) = cell_line
-write.csv(rbf_kerneldf, '../../data/round1/kernels/rbf_cnv.csv')
+write.table(rbf_kerneldf,file='../../data/round1/kernels/rbf_cnv.csv',col.names=F,row.names=F,sep="\t",quote=F)
 
 
 

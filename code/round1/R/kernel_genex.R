@@ -28,7 +28,7 @@ aux[53,53]=1
 colnames(aux)[53]="NCI-H1437"
 rownames(aux)[53]="NCI-H1437"
 cls_corr=aux
-write.table(cls_corr,file="../../data/round1/kernels/corr_genex.tsv",
+write.table(cls_corr,file="../../data/round1/kernels/corr_genex.txt",
             col.names=F,row.names=F,sep="\t",quote=F)
 
 ## Distance matrix
@@ -78,8 +78,18 @@ aux[53,53]=1
 colnames(aux)[53]="NCI-H1437"
 rownames(aux)[53]="NCI-H1437"
 dot_product=aux
-write.table(dot_product,file="../../data/round1/kernels/dot_product_genex.tsv",
+#angular_similarity=matrix(0,nrow=ncol(x),ncol=ncol(x))
+#for(i in 1:nrow(dot_product))
+#{
+#    for(j in 1:nrow(dot_product))
+#    {
+#        angular_similarity[i,j]=1-acos(dot_product[i,j])/3.14159
+#    }
+#}
+write.table(dot_product,file="../../data/round1/kernels/dot_product_genex.txt",
             col.names=F,row.names=F,sep="\t",quote=F)
+#write.table(angular_similarity,file="../../data/round1/kernels/angular_similarity_genex.txt",
+#            col.names=F,row.names=F,sep="\t",quote=F)
 
 ## Gaussian kernel
 # Normalization

@@ -60,6 +60,16 @@ aux[74,74]=1
 colnames(aux)[74]="SW620"
 rownames(aux)[74]="SW620"
 dot_product=aux
+#angular_similarity=matrix(0,nrow=ncol(x),ncol=ncol(x))
+#for(i in 1:nrow(dot_product))
+#{
+#    for(j in 1:nrow(dot_product))
+#    {   
+#        angular_similarity[i,j]=1-acos(dot_product[i,j])/3.14159
+#    }   
+#}
+#write.table(angular_similarity,file="../../data/round1/kernels/angular_similarity_methylation.txt",
+#            col.names=F,row.names=F,sep="\t",quote=F)
 write.table(dot_product,file="../../data/round1/kernels/dot_product_methylation.txt",
             col.names=F,row.names=F,sep="\t",quote=F)
 
