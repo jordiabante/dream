@@ -8,10 +8,13 @@
 ## Dependancies
 require('kernlab')
 
-## Plain correlation
-## No need to normalize
+## Read raw data
 read.table('../../data/originals/methylation.csv.gz',sep=",",header=T,row.names=1,fill=TRUE)->x
 x=x[complete.cases(x),]
+
+
+###################################### Correlation #############################################
+## No need to normalize
 cor(x,method="spearman")->cls_corr
 
 # Add SW620
@@ -24,7 +27,34 @@ cls_corr=aux
 write.table(cls_corr,file="../../data/round1/kernels/corr_methylation.txt",
             col.names=F,row.names=F,sep="\t",quote=F)
 
-## Kernel
+####################################### Kernel #################################################
+######################### Dot product before filtering
+dot_product=matrix(0,nrow=ncol(x),ncol=ncol(x))
+colnames(dot_product)=colnames(x)
+rownames(dot_product)=colnames(x)
+for(i in 1:ncol(x))
+{
+    for(j in 1:ncol(x))
+    {
+        vector_product=x[,i]%*%x[,j]
+        norm_first=sqrt(sum(x[,i]^2))
+        norm_second=sqrt(sum(x[,j]^2))
+        dot_product[i,j]=vector_product/(norm_first*norm_second)
+    }
+}
+# Add SW620
+aux=rbind(dot_product[1:73,],rep(-1,84),dot_product[74:84,])
+aux=cbind(aux[,1:73],rep(-1,85),aux[,74:84])
+aux[74,74]=1
+colnames(aux)[74]="SW620"
+rownames(aux)[74]="SW620"
+dot_product=aux
+
+write.table(dot_product,file="../../data/round1/kernels/dot_product_methylation_original.txt",
+            col.names=F,row.names=F,sep="\t",quote=F)
+
+
+######################### Dot product after filtering
 # Get variance across cell lines for each gene
 variances=matrix(0,nrow=nrow(x),ncol=2)
 for(i in 1:nrow(x))
@@ -60,16 +90,21 @@ aux[74,74]=1
 colnames(aux)[74]="SW620"
 rownames(aux)[74]="SW620"
 dot_product=aux
-#angular_similarity=matrix(0,nrow=ncol(x),ncol=ncol(x))
-#for(i in 1:nrow(dot_product))
-#{
-#    for(j in 1:nrow(dot_product))
-#    {   
-#        angular_similarity[i,j]=1-acos(dot_product[i,j])/3.14159
-#    }   
-#}
-#write.table(angular_similarity,file="../../data/round1/kernels/angular_similarity_methylation.txt",
-#            col.names=F,row.names=F,sep="\t",quote=F)
-write.table(dot_product,file="../../data/round1/kernels/dot_product_methylation.txt",
+angular_similarity=matrix(0,nrow=ncol(dot_product),ncol=ncol(dot_product))
+for(i in 1:nrow(dot_product))
+{
+    for(j in 1:nrow(dot_product))
+    {   
+        if(i==j)
+        {   
+            angular_similarity[i,j]=1
+        } else {
+            angular_similarity[i,j]=1-acos(dot_product[i,j])/3.14159
+        }   
+    }   
+}
+write.table(angular_similarity,file="../../data/round1/kernels/angular_similarity_methylation_filtered.txt",
+            col.names=F,row.names=F,sep="\t",quote=F)
+write.table(dot_product,file="../../data/round1/kernels/dot_product_methylation_filtered.txt",
             col.names=F,row.names=F,sep="\t",quote=F)
 

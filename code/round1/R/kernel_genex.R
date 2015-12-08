@@ -9,9 +9,10 @@
 #require('SpatialEpi')
 require('kernlab')
 
-## Plain correlation
-## No need to normalize
+# Read raw data
 read.table('../../data/originals/gex.csv.gz',sep=",",header=T,row.names=1)->x
+############################################# Correlation ##########################################
+## No need to normalize
 cor(x,method="spearman")->cls_corr
 
 # Add MDA-MB-175-VII
@@ -31,11 +32,41 @@ cls_corr=aux
 write.table(cls_corr,file="../../data/round1/kernels/corr_genex.txt",
             col.names=F,row.names=F,sep="\t",quote=F)
 
-## Distance matrix
-## Range is not between 0-1
-as.matrix(dist(t(x),diag=T,upper=T,method="euclidean"))->cls_dist
+############################################# Kernel ###############################################
+####################### Dot product before filtering
+dot_product=matrix(0,nrow=ncol(x),ncol=ncol(x))
+colnames(dot_product)=colnames(x)
+rownames(dot_product)=colnames(x)
+for(i in 1:ncol(x))
+{
+    for(j in 1:ncol(x))
+    {
+        vector_product=x[,i]%*%x[,j]
+        norm_first=sqrt(sum(x[,i]^2))
+        norm_second=sqrt(sum(x[,j]^2))
+        dot_product[i,j]=vector_product/(norm_first*norm_second)
+    }
+}
 
-## Kernel
+# Add MDA-MB-175-VII
+aux=rbind(dot_product[1:43,],rep(-1,83),dot_product[44:83,])
+aux=cbind(aux[,1:43],rep(-1,84),aux[,44:83])
+aux[44,44]=1
+colnames(aux)[44]="MDA-MB-175-VII"
+rownames(aux)[44]="MDA-MB-175-VII"
+dot_product=aux
+# Add NCI-H1437
+aux=rbind(dot_product[1:52,],rep(-1,84),dot_product[53:84,])
+aux=cbind(aux[,1:52],rep(-1,85),aux[,53:84])
+aux[53,53]=1
+colnames(aux)[53]="NCI-H1437"
+rownames(aux)[53]="NCI-H1437"
+dot_product=aux
+
+write.table(dot_product,file="../../data/round1/kernels/dot_product_genex_original.txt",
+            col.names=F,row.names=F,sep="\t",quote=F)
+
+####################### Dot product after filtering
 # Get variance across cell lines for each gene
 variances=matrix(0,nrow=nrow(x),ncol=2)
 for(i in 1:nrow(x))
@@ -78,40 +109,23 @@ aux[53,53]=1
 colnames(aux)[53]="NCI-H1437"
 rownames(aux)[53]="NCI-H1437"
 dot_product=aux
-#angular_similarity=matrix(0,nrow=ncol(x),ncol=ncol(x))
-#for(i in 1:nrow(dot_product))
-#{
-#    for(j in 1:nrow(dot_product))
-#    {
-#        angular_similarity[i,j]=1-acos(dot_product[i,j])/3.14159
-#    }
-#}
-write.table(dot_product,file="../../data/round1/kernels/dot_product_genex.txt",
+write.table(dot_product,file="../../data/round1/kernels/dot_product_genex_filtered.txt",
             col.names=F,row.names=F,sep="\t",quote=F)
-#write.table(angular_similarity,file="../../data/round1/kernels/angular_similarity_genex.txt",
-#            col.names=F,row.names=F,sep="\t",quote=F)
 
-## Gaussian kernel
-# Normalization
-#x_norm=matrix(0,nrow=nrow(x),ncol=ncol(x))
-#colnames(x_norm)=colnames(x)
-#rownames(x_norm)=rownames(x)
-#for(i in 1:ncol(x))
-#{
-#    x_norm[,i]=normalize(x[,i])
-#}
-## kernel
-#gaussian_kernel=matrix(0,nrow=ncol(x),ncol=ncol(x))
-#rbf=rbfdot(sigma = 1)
-#colnames(gaussian_kernel)=colnames(x)
-#rownames(gaussian_kernel)=colnames(x)
-### Gaussian kernel sigma=1
-#for(i in 1:nrow(gaussian_kernel))
-#{
-#    for(j in 1:ncol(gaussian_kernel))
-#    {
-#        gaussian_kernel[i,j]=rbf(x_norm[,i],x_norm[,j])
-#    }   
-#}
-
+####################### Angular similarity
+angular_similarity=matrix(0,nrow=ncol(dot_product),ncol=ncol(dot_product))
+for(i in 1:nrow(dot_product))
+{
+    for(j in 1:nrow(dot_product))
+    {
+        if(i==j)
+        {
+            angular_similarity[i,j]=1
+        } else {
+            angular_similarity[i,j]=1-acos(dot_product[i,j])/3.14159
+        }
+    }
+}
+write.table(angular_similarity,file="../../data/round1/kernels/angular_similarity_genex_filtered.txt",
+            col.names=F,row.names=F,sep="\t",quote=F)
 
