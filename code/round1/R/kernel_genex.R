@@ -7,7 +7,7 @@
 
 ## Dependancies
 #require('SpatialEpi')
-require('kernlab')
+#require('kernlab')
 
 # Read raw data
 read.table('../../data/originals/gex.csv.gz',sep=",",header=T,row.names=1)->x
@@ -32,7 +32,7 @@ cls_corr=aux
 write.table(cls_corr,file="../../data/round1/kernels/corr_genex.txt",
             col.names=F,row.names=F,sep="\t",quote=F)
 
-############################################# Kernel ###############################################
+########################################### Kernel b.f. ########################################
 ####################### Dot product before filtering
 dot_product=matrix(0,nrow=ncol(x),ncol=ncol(x))
 colnames(dot_product)=colnames(x)
@@ -66,6 +66,24 @@ dot_product=aux
 write.table(dot_product,file="../../data/round1/kernels/dot_product_genex_original.txt",
             col.names=F,row.names=F,sep="\t",quote=F)
 
+####################### Angular similarity
+angular_similarity=matrix(0,nrow=ncol(dot_product),ncol=ncol(dot_product))
+for(i in 1:nrow(dot_product))
+{
+    for(j in 1:nrow(dot_product))
+    {
+        if(i==j)
+        {
+            angular_similarity[i,j]=1
+        } else {
+            angular_similarity[i,j]=1-acos(dot_product[i,j])/3.14159
+        }
+    }
+}
+write.table(angular_similarity,file="../../data/round1/kernels/angular_similarity_genex_original.txt",
+            col.names=F,row.names=F,sep="\t",quote=F)
+
+############################################# Kernel a.f. #############################################
 ####################### Dot product after filtering
 # Get variance across cell lines for each gene
 variances=matrix(0,nrow=nrow(x),ncol=2)
