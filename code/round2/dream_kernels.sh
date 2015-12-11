@@ -54,8 +54,10 @@ done
 ./R/kernel_methylation.R &
 ./R/kernel_cnv.R &
 ./R/kernel_mutation.R &
+./R/kernel_drug_pathway.R &
 
-wait %1 %2 %3 %4 || exit $?
+
+wait %1 %2 %3 %4 %5 || exit $?
 
 # Run general kernels for training and test data
 #./R/kernel_general.R ../../data/originals/ch1_leaderBoard_monoTherapy.csv \

@@ -197,7 +197,7 @@ rbf_kerneldf = as.data.frame(round(rbf_kernel, 4))
 write.table(rbf_kerneldf,file='../../data/round2/kernels/rbf_drug_pathway.txt',col.names=F,row.names=F,sep="\t",quote=F)
 
 
-
+print("kernel drug pathway completed")
 
 
 

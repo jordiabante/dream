@@ -5,19 +5,19 @@ import sys
 import math
 from scipy.stats.stats import pearsonr 
 import numpy as np
-with open('ch1_train_combination_and_monoTherapy.csv','rb') as csvfile1:
+with open('../../data/originals/ch1_train_combination_and_monoTherapy.csv','rb') as csvfile1:
 	reader = csv.DictReader(csvfile1, dialect='excel')
 	combination_id = [row['COMBINATION_ID'] for row in reader]
-with open('ch1_train_combination_and_monoTherapy.csv','rb') as csvfile2:
+with open('../../data/originals/ch1_train_combination_and_monoTherapy.csv','rb') as csvfile2:
 	reader = csv.DictReader(csvfile2, dialect='excel')
 	compound_a = [row['COMPOUND_A'] for row in reader]
-with open('ch1_train_combination_and_monoTherapy.csv','rb') as csvfile3:
+with open('../../data/originals/ch1_train_combination_and_monoTherapy.csv','rb') as csvfile3:
 	reader = csv.DictReader(csvfile3, dialect='excel')
 	compound_b = [row['COMPOUND_B'] for row in reader]	
-with open('Drug_info_release.csv','rb') as csvfile4:
+with open('../../data/originals/Drug_info_release.csv','rb') as csvfile4:
 	reader = csv.DictReader(csvfile4, dialect='excel')
 	target = [row['Target(Official Symbol)'] for row in reader]
-with open('Drug_info_release.csv','rb') as csvfile5:
+with open('../../data/originals/Drug_info_release.csv','rb') as csvfile5:
 	reader = csv.DictReader(csvfile5, dialect='excel')
 	drug = [row['ChallengeName'] for row in reader]
 
