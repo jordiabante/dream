@@ -185,16 +185,16 @@ for(i in 1:169)
 
 ## write files
 cor_matdf = as.data.frame(round(cor_mat, 4))
-write.table(cor_matdf,file='../../data/round1/kernels/corr_drug_pathway.txt',col.names=F,row.names=F,sep="\t",quote=F)
+write.table(cor_matdf,file='../../data/round2/kernels/corr_drug_pathway.txt',col.names=F,row.names=F,sep="\t",quote=F)
 
 dotprod_kerneldf = as.data.frame(round(dotprod_kernel, 4))
-write.table(dotprod_kerneldf,file='../../data/round1/kernels/dot_product_drug_pathway.txt',col.names=F,row.names=F,sep="\t",quote=F)
+write.table(dotprod_kerneldf,file='../../data/round2/kernels/dot_product_drug_pathway.txt',col.names=F,row.names=F,sep="\t",quote=F)
 
 angle_kerneldf = as.data.frame(round(angle_kernel, 4))
-write.table(angle_kerneldf,file='../../data/round1/kernels/angular_similarity_drug_pathway.txt',col.names=F,row.names=F,sep="\t",quote=F)
+write.table(angle_kerneldf,file='../../data/round2/kernels/angular_similarity_drug_pathway.txt',col.names=F,row.names=F,sep="\t",quote=F)
 
 rbf_kerneldf = as.data.frame(round(rbf_kernel, 4))
-write.table(rbf_kerneldf,file='../../data/round1/kernels/rbf_drug_pathway.txt',col.names=F,row.names=F,sep="\t",quote=F)
+write.table(rbf_kerneldf,file='../../data/round2/kernels/rbf_drug_pathway.txt',col.names=F,row.names=F,sep="\t",quote=F)
 
 
 

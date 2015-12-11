@@ -52,10 +52,10 @@ done
 # Run all R scripts to obtain kernels in parallel
 ./R/kernel_genex.R &
 ./R/kernel_methylation.R &
-#./R/kernel_cnv.R &
-#./R/kernel_mutation.R &
+./R/kernel_cnv.R &
+./R/kernel_mutation.R &
 
-wait %1 %2 #%3 %4 || exit $?
+wait %1 %2 %3 %4 || exit $?
 
 # Run general kernels for training and test data
 #./R/kernel_general.R ../../data/originals/ch1_leaderBoard_monoTherapy.csv \

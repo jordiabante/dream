@@ -30,9 +30,9 @@ inner_angular_product <- function(cell_level,feature){
 
  
 ######################################## Reading file and Initialization ###########################
-print("Start reading Files and Initializations")
-#mutation=read.table('../../../data/originals/mutations.csv.gz',sep=",",header=T)
-mutation <- read.table('mutations.csv.gz',sep=",",header=T)
+#print("Start reading Files and Initializations")
+mutation=read.table('../../data/originals/mutations.csv.gz',sep=",",header=T)
+#mutation <- read.table('mutations.csv.gz',sep=",",header=T)
  header_information <- names(mutation)
  gene_index <- which(header_information == "Gene.name")
  cell_index <- which(header_information == "cell_line_name")
@@ -56,7 +56,7 @@ mutation <- read.table('mutations.csv.gz',sep=",",header=T)
 
  
 ############################################# constructing features #################################### 
-print("start constructing features") 
+#print("start constructing features") 
 # feature all genes
  feature_all_genes <- matrix(0,nrow = nrow(cell_level),ncol = nrow(gene_level))
   for (i in 1:nrow(cell_level)){
@@ -87,7 +87,7 @@ print("start constructing features")
   }
   
 ################################################### constructing kernels ##########################  
-print("start constructing kernels")  
+#print("start constructing kernels")  
   
   # Kernel inner and angular product
   temp <- inner_angular_product(cell_level,feature_all_genes)
@@ -115,14 +115,49 @@ print("start constructing kernels")
   kernel_nonsilent_corr <- cor(t(feature_nonsilent))
   
 ################################################# saving files ###################################  
-print("start saving files")
-  #write.table(my_kernel,file="../../../data/round1/kernels/dot_product_mutations.txt",
-  #            sep="\t",quote=F,col.names=F,row.names=F)
+  write.table(kernel_all_genes_dot,file="../../data/round2/kernels/dot_product_mutations_original.txt",
+              sep="\t",quote=F,col.names=F,row.names=F)
   
-  #write.table(my_kernel_2,file="../../../data/round1/kernels/corr_mutations.txt",
-  #            sep="\t",quote=F,col.names=F,row.names=F)
-  # write.table(feature_all_genes,file="../../../data/round1/features/mutation_features.txt",
-  #            sep="\t",quote=F,col.names=F,row.names=F)
-  # write.table(feature_all_genes,file="../../../data/round1/features/mutation_features.txt",
-  #            sep="\t",quote=F,col.names=F,row.names=F)
+  write.table(kernel_all_genes_angular,file="../../data/round2/kernels/angular_similarity_mutations_original.txt",
+              sep="\t",quote=F,col.names=F,row.names=F)
+ 
   
+  write.table(kernel_driver_genes_dot,file="../../data/round2/kernels/dot_product_mutations_driver.txt",
+              sep="\t",quote=F,col.names=F,row.names=F)
+  
+  write.table(kernel_driver_genes_angular,file="../../data/round2/kernels/angular_similarity_mutations_driver.txt",
+              sep="\t",quote=F,col.names=F,row.names=F)
+ 
+  write.table(kernel_nonsilent_dot,file="../../data/round2/kernels/dot_product_mutations_nonsilent.txt",
+              sep="\t",quote=F,col.names=F,row.names=F)
+  
+  write.table(kernel_nonsilent_angular,file="../../data/round2/kernels/angular_similarity_mutations_nonsilent.txt",
+              sep="\t",quote=F,col.names=F,row.names=F)
+ 
+  
+  write.table(kernel_all_genes_corr,file="../../data/round2/kernels/corr_mutations_original.txt",
+              sep="\t",quote=F,col.names=F,row.names=F)
+  
+  write.table(kernel_driver_genes_corr,file="../../data/round2/kernels/corr_mutations_driver.txt",
+              sep="\t",quote=F,col.names=F,row.names=F)
+ 
+  write.table(kernel_nonsilent_corr,file="../../data/round2/kernels/corr_mutations_nonsilent.txt",
+              sep="\t",quote=F,col.names=F,row.names=F)
+
+  write.table(kernel_all_genes_rbf,file="../../data/round2/kernels/rbf_mutations_original.txt",
+              sep="\t",quote=F,col.names=F,row.names=F)
+  
+  write.table(kernel_driver_genes_rbf,file="../../data/round2/kernels/rbf_mutations_driver.txt",
+              sep="\t",quote=F,col.names=F,row.names=F)
+ 
+  write.table(kernel_nonsilent_rbf,file="../../data/round2/kernels/rbf_mutations_nonsilent.txt",
+              sep="\t",quote=F,col.names=F,row.names=F)
+
+ write.table(feature_all_genes,file="../../data/round2/features/mutation_features_original.txt",
+              sep="\t",quote=F,col.names=F,row.names=F)
+ write.table(feature_driver_genes,file="../../data/round2/features/mutation_features_driver.txt",
+              sep="\t",quote=F,col.names=F,row.names=F)
+  
+ write.table(feature_nonsilent,file="../../data/round2/features/mutation_features_nonsilent.txt",
+              sep="\t",quote=F,col.names=F,row.names=F)
+print("mutation kernels completed")
