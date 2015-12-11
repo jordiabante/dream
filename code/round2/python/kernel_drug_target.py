@@ -1,25 +1,24 @@
-#!/usr/bin/python 
-# -*- coding: utf-8 -*-
+
 import csv
 import sys
 import math
 from scipy.stats.stats import pearsonr 
 import numpy as np
-with open('../../data/originals/ch1_train_combination_and_monoTherapy.csv','rb') as csvfile1:
-	reader = csv.DictReader(csvfile1, dialect='excel')
-	combination_id = [row['COMBINATION_ID'] for row in reader]
+with open('../../data/originals/ch1_train_combination_and_monoTherapy.csv','rb') as csvfile1: 
+        reader = csv.DictReader(csvfile1, dialect='excel')
+        combination_id = [row['COMBINATION_ID'] for row in reader]
 with open('../../data/originals/ch1_train_combination_and_monoTherapy.csv','rb') as csvfile2:
-	reader = csv.DictReader(csvfile2, dialect='excel')
-	compound_a = [row['COMPOUND_A'] for row in reader]
+        reader = csv.DictReader(csvfile2, dialect='excel')
+        compound_a = [row['COMPOUND_A'] for row in reader]
 with open('../../data/originals/ch1_train_combination_and_monoTherapy.csv','rb') as csvfile3:
-	reader = csv.DictReader(csvfile3, dialect='excel')
-	compound_b = [row['COMPOUND_B'] for row in reader]	
+        reader = csv.DictReader(csvfile3, dialect='excel')
+        compound_b = [row['COMPOUND_B'] for row in reader]
 with open('../../data/originals/Drug_info_release.csv','rb') as csvfile4:
-	reader = csv.DictReader(csvfile4, dialect='excel')
-	target = [row['Target(Official Symbol)'] for row in reader]
+        reader = csv.DictReader(csvfile4, dialect='excel')
+        target = [row['Target(Official Symbol)'] for row in reader]
 with open('../../data/originals/Drug_info_release.csv','rb') as csvfile5:
-	reader = csv.DictReader(csvfile5, dialect='excel')
-	drug = [row['ChallengeName'] for row in reader]
+        reader = csv.DictReader(csvfile5, dialect='excel')
+        drug = [row['ChallengeName'] for row in reader]
 
 targetline = []
 target_count = 0
@@ -163,25 +162,10 @@ def ML():
 		for n in range(0,combination()):
 			t = pearsonr(drug_combination[m,],drug_combination[n,])
 			kernel_2[m,n] = t[0]
-	csvfile_output = file('dot_product_drug_target.csv', 'wb')
-	writer = csv.writer(csvfile_output)
-	data = kernel_1
-	writer.writerows(data)
-	csvfile_output.close()
-	csvfile_output = file('corr_drug_target.csv', 'wb')
-	writer = csv.writer(csvfile_output)
-	data = kernel_2
-	writer.writerows(data)
-	csvfile_output.close()
-	csvfile_output = file('angular_similarity_drug_target.csv', 'wb')
-	writer = csv.writer(csvfile_output)
-	data = kernel_3
-	writer.writerows(data)
-	csvfile_output.close()
-	csvfile_output = file('target_line.csv', 'wb')
-	writer = csv.writer(csvfile_output)
-	data = [(targetline)]
-	writer.writerows(data)
+	np.savetxt('dot_product_drug_target.txt',kernel_1, delimiter = '\t')
+	np.savetxt('corr_drug_target.txt',kernel_1, delimiter = '\t')
+	np.savetxt('angular_similarity_drug_target.txt',kernel_1, delimiter = '\t')
+	
 
 	
 
