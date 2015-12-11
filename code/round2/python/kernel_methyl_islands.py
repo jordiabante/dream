@@ -35,20 +35,8 @@ def Kernel():
 			kernel_ang[m,n] = t
 			t = pearsonr(isle_nor[m,],isle_nor[n,])
 			kernel_cor[m,n] = t[0]
-			
-	csvfile_output = file('dot_product_methyl_islands.csv', 'wb')
-	writer = csv.writer(csvfile_output)
-	data = kernel_dot
-	writer.writerows(data)
-	csvfile_output.close()	
-	csvfile_output = file('angular_similarity_methyl_islands.csv', 'wb')
-	writer = csv.writer(csvfile_output)
-	data = kernel_ang
-	writer.writerows(data)
-	csvfile_output.close()
-	csvfile_output = file('corr_methyl_islands.csv', 'wb')
-	writer = csv.writer(csvfile_output)
-	data = kernel_cor
-	writer.writerows(data)
-	csvfile_output.close()
+	np.savetxt('../../data/round2/kernels/dot_product_methylation_islands.txt',kernel_dot, delimiter = '\t')
+	np.savetxt('../../data/round2/kernels/corr_methylation_islands.txt',kernel_cor, delimiter = '\t')	
+	np.savetxt('../../data/round2/kernels/angular_similarity_methylation_islands.txt',kernel_ang, delimiter = '\t')			
+	
 Kernel()
