@@ -1,6 +1,4 @@
 
-import csv
-import sys
 import math
 from scipy.stats.stats import pearsonr 
 import numpy as np
@@ -133,12 +131,7 @@ def ML():
 				address_b = m
 		for n in range(0,target_count):
 			drug_combination[i,n] = drug_target[address_a,n]+drug_target[address_b,n]
-	csvfile_output = file('drug_comb_feature.csv', 'wb')
 	np.savetxt('../../data/round2/features/drug_comb_feature.txt',drug_combination, delimiter = '\t')
-	writer = csv.writer(csvfile_output)
-	data = drug_combination
-	writer.writerows(data)
-	csvfile_output.close()
 	norm = 0
 	for i in range(0,combination()):
 		for m in range(0,target_count):
