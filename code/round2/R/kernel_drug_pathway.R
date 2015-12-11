@@ -28,7 +28,7 @@ for (i in 1:length(target))
 path_genelist = rep(NA, length(genelist))
 for (i in 1:length(genelist))
 {
-  cat(i)
+ # cat(i)
   # get ensemble ID for each gene list
   ID = paste(unlist(mget(unlist(genelist[i]), org.Hs.egSYMBOL2EG, ifnotfound = NA)))
   ID = paste("hsa:", ID)
@@ -43,10 +43,9 @@ for (i in 1:length(genelist))
     path_genelist[i] = str_c(pathway, collapse = ",")
   }
 }
-
 ## get the drug combination, gene combination, and pathway combination
-drug_data = read.csv(file='../../data/originals/drug_comb_name.csv')
-drug_comb = as.character(drug_data$COMBINATION_ID)
+drug_data = read.csv(file='../../data/originals/drug_comb_name.csv',header=F)
+drug_comb = as.character(drug_data$V1)
 gene_comb = rep(NA, length(drug_comb))
 path_comb = rep(NA, length(drug_comb))
 for (i in 1:length(drug_comb))
@@ -59,7 +58,6 @@ for (i in 1:length(drug_comb))
   path_combs = paste(path_genelist[ind1], path_genelist[ind2], collapse = ",")
   path_comb[i] = gsub("[ ]", ",", path_combs)
 }
-
 # get all possible pathways
 path_all = matrix()
 for (i in 1:length(drug_comb))

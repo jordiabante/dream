@@ -134,6 +134,7 @@ def ML():
 		for n in range(0,target_count):
 			drug_combination[i,n] = drug_target[address_a,n]+drug_target[address_b,n]
 	csvfile_output = file('drug_comb_feature.csv', 'wb')
+	np.savetxt('../../data/round2/features/drug_comb_feature.txt',drug_combination, delimiter = '\t')
 	writer = csv.writer(csvfile_output)
 	data = drug_combination
 	writer.writerows(data)
@@ -162,9 +163,9 @@ def ML():
 		for n in range(0,combination()):
 			t = pearsonr(drug_combination[m,],drug_combination[n,])
 			kernel_2[m,n] = t[0]
-	np.savetxt('dot_product_drug_target.txt',kernel_1, delimiter = '\t')
-	np.savetxt('corr_drug_target.txt',kernel_1, delimiter = '\t')
-	np.savetxt('angular_similarity_drug_target.txt',kernel_1, delimiter = '\t')
+	np.savetxt('../../data/round2/kernels/dot_product_drug_target.txt',kernel_1, delimiter = '\t')
+	np.savetxt('../../data/round2/kernels/corr_drug_target.txt',kernel_1, delimiter = '\t')
+	np.savetxt('../../data/round2/kernels/angular_similarity_drug_target.txt',kernel_1, delimiter = '\t')
 	
 
 	

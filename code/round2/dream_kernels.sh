@@ -50,22 +50,22 @@ done
 
 
 # Run all R scripts to obtain kernels in parallel
-./R/kernel_genex.R &
-./R/kernel_methylation.R &
-./R/kernel_cnv.R &
-./R/kernel_mutation.R &
-./R/kernel_drug_pathway.R &
+#./R/kernel_genex.R &
+#./R/kernel_methylation.R &
+#./R/kernel_cnv.R &
+#./R/kernel_mutation.R &
+#./R/kernel_drug_pathway.R &
 
 
-wait %1 %2 %3 %4 %5 || exit $?
+#wait %1 %2 %3 %4 %5 || exit $?
 
 # Run general kernels for training and test data
-#./R/kernel_general.R ../../data/originals/ch1_leaderBoard_monoTherapy.csv \
-#    ../../data/originals/ch1_train_combination_and_monoTherapy.csv \
-#    ../../data/round1/kernels/dot_product_genex.tsv \
-#    ../../data/round1/kernels/dot_product_drugs.csv \
-#    ../../data/originals/cell_line_order.csv \
-#    ../../data/originals/drug_comb_name.csv \
-#    genex
+./R/kernel_general.R ../../data/originals/ch1_leaderBoard_monoTherapy.csv \
+    ../../data/originals/ch1_train_combination_and_monoTherapy.csv \
+    ../../data/round2/kernels/dot_product_genex_filtered.txt \
+    ../../data/round2/kernels/dot_product_drug_target.txt \
+    ../../data/originals/cell_line_order.csv \
+    ../../data/originals/drug_comb_name.csv \
+    dot_product_genex_filtered
     
 
