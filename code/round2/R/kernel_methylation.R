@@ -23,7 +23,7 @@ aux[74,74]=1
 colnames(aux)[74]="SW620"
 rownames(aux)[74]="SW620"
 cls_corr=aux
-write.table(cls_corr,file="../../data/round1/kernels/corr_methylation.txt",
+write.table(cls_corr,file="../../data/round2/kernels/corr_methylation.txt",
             col.names=F,row.names=F,sep="\t",quote=F)
 
 ####################################### Kernel b.f. #############################################
@@ -49,7 +49,7 @@ colnames(aux)[74]="SW620"
 rownames(aux)[74]="SW620"
 dot_product=aux
 
-write.table(dot_product,file="../../data/round1/kernels/dot_product_methylation_shores_original.txt",
+write.table(dot_product,file="../../data/round2/kernels/dot_product_methylation_shores_original.txt",
             col.names=F,row.names=F,sep="\t",quote=F)
 
 angular_similarity=matrix(0,nrow=ncol(dot_product),ncol=ncol(dot_product))
@@ -65,7 +65,7 @@ for(i in 1:nrow(dot_product))
         }   
     }   
 }
-write.table(angular_similarity,file="../../data/round1/kernels/angular_similarity_methylation_shores_original.txt",
+write.table(angular_similarity,file="../../data/round2/kernels/angular_similarity_methylation_shores_original.txt",
             col.names=F,row.names=F,sep="\t",quote=F)
 
 
@@ -106,7 +106,7 @@ aux[74,74]=1
 colnames(aux)[74]="SW620"
 rownames(aux)[74]="SW620"
 dot_product=aux
-write.table(dot_product,file="../../data/round1/kernels/dot_product_methylation_shores_filtered.txt",
+write.table(dot_product,file="../../data/round2/kernels/dot_product_methylation_shores_filtered.txt",
             col.names=F,row.names=F,sep="\t",quote=F)
 angular_similarity=matrix(0,nrow=ncol(dot_product),ncol=ncol(dot_product))
 for(i in 1:nrow(dot_product))
@@ -121,6 +121,6 @@ for(i in 1:nrow(dot_product))
         }   
     }   
 }
-write.table(angular_similarity,file="../../data/round1/kernels/angular_similarity_methylation_shores_filtered.txt",
+write.table(angular_similarity,file="../../data/round2/kernels/angular_similarity_methylation_shores_filtered.txt",
             col.names=F,row.names=F,sep="\t",quote=F)
 

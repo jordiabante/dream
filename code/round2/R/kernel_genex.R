@@ -29,7 +29,7 @@ aux[53,53]=1
 colnames(aux)[53]="NCI-H1437"
 rownames(aux)[53]="NCI-H1437"
 cls_corr=aux
-write.table(cls_corr,file="../../data/round1/kernels/corr_genex.txt",
+write.table(cls_corr,file="../../data/round2/kernels/corr_genex.txt",
             col.names=F,row.names=F,sep="\t",quote=F)
 
 ########################################### Kernel b.f. ########################################
@@ -63,7 +63,7 @@ colnames(aux)[53]="NCI-H1437"
 rownames(aux)[53]="NCI-H1437"
 dot_product=aux
 
-write.table(dot_product,file="../../data/round1/kernels/dot_product_genex_original.txt",
+write.table(dot_product,file="../../data/round2/kernels/dot_product_genex_original.txt",
             col.names=F,row.names=F,sep="\t",quote=F)
 
 ####################### Angular similarity
@@ -80,7 +80,7 @@ for(i in 1:nrow(dot_product))
         }
     }
 }
-write.table(angular_similarity,file="../../data/round1/kernels/angular_similarity_genex_original.txt",
+write.table(angular_similarity,file="../../data/round2/kernels/angular_similarity_genex_original.txt",
             col.names=F,row.names=F,sep="\t",quote=F)
 
 ############################################# Kernel a.f. #############################################
@@ -127,7 +127,7 @@ aux[53,53]=1
 colnames(aux)[53]="NCI-H1437"
 rownames(aux)[53]="NCI-H1437"
 dot_product=aux
-write.table(dot_product,file="../../data/round1/kernels/dot_product_genex_filtered.txt",
+write.table(dot_product,file="../../data/round2/kernels/dot_product_genex_filtered.txt",
             col.names=F,row.names=F,sep="\t",quote=F)
 
 ####################### Angular similarity
@@ -144,6 +144,6 @@ for(i in 1:nrow(dot_product))
         }
     }
 }
-write.table(angular_similarity,file="../../data/round1/kernels/angular_similarity_genex_filtered.txt",
+write.table(angular_similarity,file="../../data/round2/kernels/angular_similarity_genex_filtered.txt",
             col.names=F,row.names=F,sep="\t",quote=F)
 
