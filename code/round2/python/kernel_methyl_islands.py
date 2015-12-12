@@ -1,3 +1,4 @@
+
 #!/home/mostafa_karimi/anaconda2/bin/python 
 # -*- coding: utf-8 -*-
 
@@ -38,5 +39,5 @@ def Kernel():
 	np.savetxt('../../data/round2/kernels/dot_product_methylation_islands.txt',kernel_dot, delimiter = '\t')
 	np.savetxt('../../data/round2/kernels/corr_methylation_islands.txt',kernel_cor, delimiter = '\t')	
 	np.savetxt('../../data/round2/kernels/angular_similarity_methylation_islands.txt',kernel_ang, delimiter = '\t')			
-print("kernel methylation islands completed")	
+print("kernel methylation islands completed")
 Kernel()

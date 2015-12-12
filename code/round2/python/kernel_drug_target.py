@@ -1,5 +1,4 @@
 #!/home/mostafa_karimi/anaconda2/bin/python 
-
 import math
 import csv
 from scipy.stats.stats import pearsonr 
