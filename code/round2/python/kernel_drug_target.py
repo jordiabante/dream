@@ -1,4 +1,5 @@
-
+#!/home/haoranchen9453/anaconda2/bin/python
+import csv
 import math
 from scipy.stats.stats import pearsonr 
 import numpy as np
@@ -11,10 +12,10 @@ with open('../../data/originals/ch1_train_combination_and_monoTherapy.csv','rb')
 with open('../../data/originals/ch1_train_combination_and_monoTherapy.csv','rb') as csvfile3:
         reader = csv.DictReader(csvfile3, dialect='excel')
         compound_b = [row['COMPOUND_B'] for row in reader]
-with open('../../data/originals/Drug_info_release.csv','rb') as csvfile4:
+with open('../../data/originals/drug_info_release.csv','rU') as csvfile4:
         reader = csv.DictReader(csvfile4, dialect='excel')
         target = [row['Target(Official Symbol)'] for row in reader]
-with open('../../data/originals/Drug_info_release.csv','rb') as csvfile5:
+with open('../../data/originals/drug_info_release.csv','rU') as csvfile5:
         reader = csv.DictReader(csvfile5, dialect='excel')
         drug = [row['ChallengeName'] for row in reader]
 
