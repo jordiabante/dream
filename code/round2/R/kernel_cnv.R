@@ -37,13 +37,14 @@ cor_mat = cor(cn_df)
 
 # dot product kernel matrix
 dotprod_kernel = matrix(NA, 85, 85)
-
+angular_kernel = matrix(NA,85,85)
 for(i in 1:85)
 {
   for(j in 1:85)
   {
     l2_norm = (sqrt(t(cn_features[i,])%*%cn_features[i,])) * (sqrt(t(cn_features[j,])%*%cn_features[j,]))
     dotprod_kernel[i,j] = (cn_features[i,] %*% cn_features[j,]) / l2_norm
+    angular_kernel[i,j] = 1-2*acos(pmin(pmax(dotprod_kernel[i,j],-1.0),1.0))/pi   
   }
 }
 
@@ -80,6 +81,12 @@ rbf_kerneldf = as.data.frame(rbf_kernel,col.names=F,row.names=F,sep="	",quote=F)
 colnames(rbf_kerneldf) = cell_line
 rownames(rbf_kerneldf) = cell_line
 write.table(rbf_kerneldf,file='../../data/round2/kernels/rbf_cnv.txt',col.names=F,row.names=F,sep="\t",quote=F)
+
+angular_kerneldf = as.data.frame(angular_kernel,col.names=F,row.names=F,sep="	",quote=F)
+colnames(angular_kerneldf) = cell_line
+rownames(angular_kerneldf) = cell_line
+write.table(angular_kerneldf,file='../../data/round2/kernels/angular_similarity_cnv.txt',col.names=F,row.names=F,sep="\t",quote=F)
+
 print("kernel cnv completed")
 
 

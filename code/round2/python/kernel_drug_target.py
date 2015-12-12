@@ -1,7 +1,10 @@
+#!/home/mostafa_karimi/anaconda2/bin/python 
 
 import math
+import csv
 from scipy.stats.stats import pearsonr 
 import numpy as np
+
 with open('../../data/originals/ch1_train_combination_and_monoTherapy.csv','rb') as csvfile1: 
         reader = csv.DictReader(csvfile1, dialect='excel')
         combination_id = [row['COMBINATION_ID'] for row in reader]
@@ -11,10 +14,10 @@ with open('../../data/originals/ch1_train_combination_and_monoTherapy.csv','rb')
 with open('../../data/originals/ch1_train_combination_and_monoTherapy.csv','rb') as csvfile3:
         reader = csv.DictReader(csvfile3, dialect='excel')
         compound_b = [row['COMPOUND_B'] for row in reader]
-with open('../../data/originals/Drug_info_release.csv','rb') as csvfile4:
+with open('../../data/originals/drug_info_release.csv','rU') as csvfile4:
         reader = csv.DictReader(csvfile4, dialect='excel')
         target = [row['Target(Official Symbol)'] for row in reader]
-with open('../../data/originals/Drug_info_release.csv','rb') as csvfile5:
+with open('../../data/originals/drug_info_release.csv','rU') as csvfile5:
         reader = csv.DictReader(csvfile5, dialect='excel')
         drug = [row['ChallengeName'] for row in reader]
 
@@ -161,7 +164,7 @@ def ML():
 	np.savetxt('../../data/round2/kernels/angular_similarity_drug_target.txt',kernel_1, delimiter = '\t')
 	
 
-	
+print("kernel drug target completed")	
 
 
 

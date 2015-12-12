@@ -123,4 +123,4 @@ for(i in 1:nrow(dot_product))
 }
 write.table(angular_similarity,file="../../data/round2/kernels/angular_similarity_methylation_shores_filtered.txt",
             col.names=F,row.names=F,sep="\t",quote=F)
-print("kernel methylation completed")
+print("kernel methylation shores completed")

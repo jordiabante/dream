@@ -1,4 +1,4 @@
-#!/usr/bin/python 
+#!/home/mostafa_karimi/anaconda2/bin/python 
 # -*- coding: utf-8 -*-
 
 
@@ -15,7 +15,7 @@ def Kernel():
 	kernel_cor = np.zeros((cell_len,cell_len),float)
 	kernel_dot = np.zeros((cell_len,cell_len),float)
 	kernel_ang = np.zeros((cell_len,cell_len),float)
-	isle = pn.read_csv('../data/originals/methyl_islands.csv')
+	isle = pn.read_csv('../../data/originals/methyl_islands.csv')
 	isle_len = len(isle['C32'])
 	isle = isle.sort_index(axis=1)
 	feature = np.zeros((cell_len,isle_len),float)
@@ -35,8 +35,8 @@ def Kernel():
 			kernel_ang[m,n] = t
 			t = pearsonr(isle_nor[m,],isle_nor[n,])
 			kernel_cor[m,n] = t[0]
-	np.savetxt('../data/round2/kernels/dot_product_methylation_islands.txt',kernel_dot, delimiter = '\t')
-	np.savetxt('../data/round2/kernels/corr_methylation_islands.txt',kernel_cor, delimiter = '\t')	
-	np.savetxt('../data/round2/kernels/angular_similarity_methylation_islands.txt',kernel_ang, delimiter = '\t')			
-	
+	np.savetxt('../../data/round2/kernels/dot_product_methylation_islands.txt',kernel_dot, delimiter = '\t')
+	np.savetxt('../../data/round2/kernels/corr_methylation_islands.txt',kernel_cor, delimiter = '\t')	
+	np.savetxt('../../data/round2/kernels/angular_similarity_methylation_islands.txt',kernel_ang, delimiter = '\t')			
+print("kernel methylation islands completed")	
 Kernel()

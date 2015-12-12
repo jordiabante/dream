@@ -141,25 +141,14 @@ cor_mat = cor(drug_df)
 
 # dot product kernel matrix
 dotprod_kernel = matrix(NA, 169, 169)
-
+angular_kernel = matrix(NA,169,169)
 for(i in 1:169)
 {
   for(j in 1:169)
   {
     l2_norm = (sqrt(t(drug_score[i,])%*%drug_score[i,])) * (sqrt(t(drug_score[j,])%*%drug_score[j,]))
     dotprod_kernel[i,j] = (drug_score[i,] %*% drug_score[j,]) / l2_norm
-  }
-}
-
-# dot product angles kernel matix
-angle_kernel = matrix(NA, 169, 169)
-for(i in 1:169)
-{
-  for(j in 1:169)
-  {
-    if(dotprod_kernel[i, j] > 1)
-    {dotprod_kernel[i, j] = 1}
-    angle_kernel[i, j] = acos(dotprod_kernel[i, j]) * (180/pi)
+    angular_kernel[i,j] = 1 -2*acos(pmin(pmax(dotprod_kernel[i,j],-1.0),1.0))/pi
   }
 }
 
@@ -188,12 +177,11 @@ write.table(cor_matdf,file='../../data/round2/kernels/corr_drug_pathway.txt',col
 dotprod_kerneldf = as.data.frame(round(dotprod_kernel, 4))
 write.table(dotprod_kerneldf,file='../../data/round2/kernels/dot_product_drug_pathway.txt',col.names=F,row.names=F,sep="\t",quote=F)
 
-angle_kerneldf = as.data.frame(round(angle_kernel, 4))
-write.table(angle_kerneldf,file='../../data/round2/kernels/angular_similarity_drug_pathway.txt',col.names=F,row.names=F,sep="\t",quote=F)
+angular_kerneldf = as.data.frame(round(angular_kernel, 4))
+write.table(angular_kerneldf,file='../../data/round2/kernels/angular_similarity_drug_pathway.txt',col.names=F,row.names=F,sep="\t",quote=F)
 
 rbf_kerneldf = as.data.frame(round(rbf_kernel, 4))
 write.table(rbf_kerneldf,file='../../data/round2/kernels/rbf_drug_pathway.txt',col.names=F,row.names=F,sep="\t",quote=F)
-
 
 print("kernel drug pathway completed")
 
