@@ -9,20 +9,13 @@
 #require('kernlab')
 
 ## Read raw data
-read.table('../../data/originals/methylation.csv.gz',sep=",",header=T,row.names=1,fill=TRUE)->x
+read.table('../../data/originals/methyl_shores_modified.txt.gz',sep="\t",header=T,row.names=1,fill=TRUE)->x
 x=x[complete.cases(x),]
 
 ###################################### Correlation #############################################
 ## No need to normalize
 cor(x,method="spearman")->cls_corr
 
-# Add SW620
-aux=rbind(cls_corr[1:73,],rep(-1,84),cls_corr[74:84,])
-aux=cbind(aux[,1:73],rep(-1,85),aux[,74:84])
-aux[74,74]=1
-colnames(aux)[74]="SW620"
-rownames(aux)[74]="SW620"
-cls_corr=aux
 write.table(cls_corr,file="../../data/round2/kernels/corr_methylation.txt",
             col.names=F,row.names=F,sep="\t",quote=F)
 
@@ -41,13 +34,6 @@ for(i in 1:ncol(x))
         dot_product[i,j]=vector_product/(norm_first*norm_second)
     }
 }
-# Add SW620
-aux=rbind(dot_product[1:73,],rep(-1,84),dot_product[74:84,])
-aux=cbind(aux[,1:73],rep(-1,85),aux[,74:84])
-aux[74,74]=1
-colnames(aux)[74]="SW620"
-rownames(aux)[74]="SW620"
-dot_product=aux
 
 write.table(dot_product,file="../../data/round2/kernels/dot_product_methylation_shores_original.txt",
             col.names=F,row.names=F,sep="\t",quote=F)
@@ -99,13 +85,6 @@ for(i in 1:ncol(x))
         dot_product[i,j]=vector_product/(norm_first*norm_second)
     }
 }
-# Add SW620
-aux=rbind(dot_product[1:73,],rep(-1,84),dot_product[74:84,])
-aux=cbind(aux[,1:73],rep(-1,85),aux[,74:84])
-aux[74,74]=1
-colnames(aux)[74]="SW620"
-rownames(aux)[74]="SW620"
-dot_product=aux
 write.table(dot_product,file="../../data/round2/kernels/dot_product_methylation_shores_filtered.txt",
             col.names=F,row.names=F,sep="\t",quote=F)
 angular_similarity=matrix(0,nrow=ncol(dot_product),ncol=ncol(dot_product))
