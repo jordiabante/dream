@@ -12,9 +12,7 @@ Examples:
     dream.sh -t 5 -- file.txt
 
 Dependancies:
-    R{SpatialEpi}
-    R{kernlab}
-    R{BioPhysConnectoR}
+    NA
 
 Date:
     2015/12/16

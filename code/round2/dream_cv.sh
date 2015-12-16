@@ -12,7 +12,7 @@ if [ $# -eq 0 ]
         exit 1
 fi
 
-TEMP=$(getopt -o hk: -l help,threads: -n "$script_name.sh" -- "$@")
+TEMP=$(getopt -o ht:r: -l help,threads:,round: -n "$script_name.sh" -- "$@")
 
 if [ $? -ne 0 ] 
 then
@@ -25,6 +25,7 @@ eval set -- "$TEMP"
 
 # Defaults
 threads=2
+round=2
 
 while true
 do
@@ -33,8 +34,12 @@ do
       cat "${script_absdir}/${script_name}_help.txt"
       exit
       ;;  
-    -k|--threads)  
+    -t|--threads)  
       threads="$2"
+      shift 2
+      ;;  
+    -r|--round)  
+      round="$2"
       shift 2
       ;;  
    --) 
@@ -52,7 +57,13 @@ done
 suffixes="$1"
 
 # Run cross-validation in parallel
+export round
+
 cat "${suffixes}" | xargs -i -n 1 --max-proc "${threads}" bash -c \
-	'./R/whatever.R kernel_train_{} kernel_test_{} >> ../../data/round2/cross_validation.txt ' 2&> "${script_name}.log"
+	'./R/whatever.R ../../data/round${round}/kernels_train_test/kernel_train_{} \
+	../../data/round${round}/kernels_train_test/kernel_test_{}' \
+	1>> ../../data/round2/cross_validation.txt  2>>"${script_name}.log"
+#	'echo ../../data/round${round}/kernels_train_test/kernel_train_{}' \
+#	1>> ../../data/round2/cross_validation.txt  2>>"${script_name}.log"
     
 
