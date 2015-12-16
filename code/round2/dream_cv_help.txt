@@ -1,0 +1,24 @@
+Description:
+    Wrapper to run cross-validation in parallel.
+
+Usage:
+	dream_cv.sh  [OPTIONS]  -- FILE_SUFFIXES
+
+Options:
+    -h--help                 	Help.
+    -t--threads              	# threads. Default: 2.
+
+Examples:
+    dream.sh -t 5 -- file.txt
+
+Dependancies:
+    R{SpatialEpi}
+    R{kernlab}
+    R{BioPhysConnectoR}
+
+Date:
+    2015/12/16
+
+Author:
+    Jordi Abante <abante.jordi@gmail.com>
+    https://jordiabante.wordpress.com
