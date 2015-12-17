@@ -13,8 +13,8 @@ make_kernel <- function(kernel_cell_line,kernel_drug,outsuffix){
   leaderboard_train <- leaderboard_train[which(leaderboard_train[,quality_index]==1),]
   train_score <- as.data.frame(leaderboard_train[,synergy_index])
   
- # write.table(train_score,"train_score.csv",sep=",",col.names=F,row.names=F,quote=F)
- # write.table(train_score,"../../data/originals/train_score.csv",sep=",",col.names=F,row.names=F,quote=F)
+  # write.table(train_score,"train_score.csv",sep=",",col.names=F,row.names=F,quote=F)
+  # write.table(train_score,"../../data/originals/train_score.csv",sep=",",col.names=F,row.names=F,quote=F)
   
   
   kernel_total <- matrix(0,nrow = nrow(leaderboard_train),ncol = nrow(leaderboard_train))
@@ -37,7 +37,7 @@ make_kernel <- function(kernel_cell_line,kernel_drug,outsuffix){
   write.table(kernel_total_train,file=paste("../../data/round2/kernel_train_test/kernel_train_",outsuffix,".txt",sep=""),col.names=F,row.names=F,sep="\t",quote=F)
   write.table(kernel_test,file=paste("../../data/round2/kernel_train_test/kernel_test_",outsuffix,".txt",sep=""),col.names=F,row.names=F,sep="\t",quote=F)
   
- # write.table(kernel_total_train,file="kernel_train_mutation.csv",col.names=F,row.names=F,sep=",",quote=F)
+  # write.table(kernel_total_train,file="kernel_train_mutation.csv",col.names=F,row.names=F,sep=",",quote=F)
   #write.table(kernel_test,file="kernel_test_mutation.csv",col.names=F,row.names=F,sep="\t",quote=F)
 }
 
@@ -66,15 +66,17 @@ for(i in  1:length(drug_index)){
       drug_outsuffix <- sub('../../data/round2/kernels/','',kernel_drug_path)
       kernel_drug <- read.table(paste(kernel_drug_path,".txt",sep=""),sep="\t",header=F)      
       for(l in 1:length(cell_index)){
-        for(k in 1:nrow(kernel_names)){
-          kernel_cell_path <- kernel_names[k,cell_index[l]]
-          if(!is.na(kernel_cell_path)){
-            cell_outsuffix <-sub('../../data/round2/kernels/','',kernel_cell_path)
-            kernel_cell_line <- read.table(paste(kernel_cell_path,".txt",sep=""),sep="\t",header=F)
-            print(paste("kernel train and test : ",drug_outsuffix,"_",cell_outsuffix," has been started",sep=""))
-	    make_kernel(kernel_cell_line,kernel_drug,paste(drug_outsuffix,"_",cell_outsuffix,sep=""))
-            print(paste("kernel train and test : ",drug_outsuffix,"_",cell_outsuffix," has been completed",sep=""))
-	   }
+        if((l==3) | (l==4) | (l==7) | (l==8)){
+          for(k in 1:nrow(kernel_names)){
+            kernel_cell_path <- kernel_names[k,cell_index[l]]
+            if(!is.na(kernel_cell_path)){
+              cell_outsuffix <-sub('../../data/round2/kernels/','',kernel_cell_path)
+              kernel_cell_line <- read.table(paste(kernel_cell_path,".txt",sep=""),sep="\t",header=F)
+              print(paste("kernel train and test : ",drug_outsuffix,"_",cell_outsuffix," has been started",sep=""))
+              make_kernel(kernel_cell_line,kernel_drug,paste(drug_outsuffix,"_",cell_outsuffix,sep=""))
+              print(paste("kernel train and test : ",drug_outsuffix,"_",cell_outsuffix," has been completed",sep=""))
+            }	  
+          }
         }
       }
     }
