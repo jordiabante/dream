@@ -50,17 +50,17 @@ done
 
 
 # Run all R scripts to obtain kernels in parallel
-./R/kernel_genex.R &
+#./R/kernel_genex.R &
 ./R/kernel_methylation.R &
-./R/kernel_cnv.R &
-./R/kernel_mutation.R &
-./R/kernel_drug_pathway.R &
-./python/kernel_drug_target.py &
-./python/kernel_methyl_islands.py &
+#./R/kernel_cnv.R &
+#./R/kernel_mutation.R &
+#./R/kernel_drug_pathway.R &
+#./python/kernel_drug_target.py &
+#./python/kernel_methyl_islands.py &
 
-wait %1 %2 %3 %4 %5 %6 %7|| exit $?
+#wait %1 %2 %3 %4 %5 %6 %7|| exit $?
 
 # Run general kernels for training and test data
-./R/kernel_general.R
+#./R/kernel_general.R
     
 

@@ -1,0 +1,2 @@
+../../data/round2/kernel_train_test/kernel_train_angular_similarity_drug_pathway_angular_similarity_cnv.txt	3	3	1	699	3	657
+../../data/round2/kernel_train_test/kernel_train_dot_product_drug_pathway_angular_similarity_cnv.txt	3	3	1	716	3	692

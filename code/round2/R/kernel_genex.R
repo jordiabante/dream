@@ -10,25 +10,11 @@
 #require('kernlab')
 
 # Read raw data
-read.table('../../data/originals/gex.csv.gz',sep=",",header=T,row.names=1)->x
+read.table('../../data/originals/gex_modified.txt.gz',sep="\t",header=T,row.names=1)->x
 ############################################# Correlation ##########################################
 ## No need to normalize
 cor(x,method="spearman")->cls_corr
 
-# Add MDA-MB-175-VII
-aux=rbind(cls_corr[1:43,],rep(-1,83),cls_corr[44:83,])
-aux=cbind(aux[,1:43],rep(-1,84),aux[,44:83])
-aux[44,44]=1
-colnames(aux)[44]="MDA-MB-175-VII"
-rownames(aux)[44]="MDA-MB-175-VII"
-cls_corr=aux
-# Add NCI-H1437
-aux=rbind(cls_corr[1:52,],rep(-1,84),cls_corr[53:84,])
-aux=cbind(aux[,1:52],rep(-1,85),aux[,53:84])
-aux[53,53]=1
-colnames(aux)[53]="NCI-H1437"
-rownames(aux)[53]="NCI-H1437"
-cls_corr=aux
 write.table(cls_corr,file="../../data/round2/kernels/corr_genex.txt",
             col.names=F,row.names=F,sep="\t",quote=F)
 
@@ -47,21 +33,6 @@ for(i in 1:ncol(x))
         dot_product[i,j]=vector_product/(norm_first*norm_second)
     }
 }
-
-# Add MDA-MB-175-VII
-aux=rbind(dot_product[1:43,],rep(-1,83),dot_product[44:83,])
-aux=cbind(aux[,1:43],rep(-1,84),aux[,44:83])
-aux[44,44]=1
-colnames(aux)[44]="MDA-MB-175-VII"
-rownames(aux)[44]="MDA-MB-175-VII"
-dot_product=aux
-# Add NCI-H1437
-aux=rbind(dot_product[1:52,],rep(-1,84),dot_product[53:84,])
-aux=cbind(aux[,1:52],rep(-1,85),aux[,53:84])
-aux[53,53]=1
-colnames(aux)[53]="NCI-H1437"
-rownames(aux)[53]="NCI-H1437"
-dot_product=aux
 
 write.table(dot_product,file="../../data/round2/kernels/dot_product_genex_original.txt",
             col.names=F,row.names=F,sep="\t",quote=F)
@@ -113,20 +84,6 @@ for(i in 1:ncol(x))
         dot_product[i,j]=vector_product/(norm_first*norm_second)
     }
 }
-# Add MDA-MB-175-VII
-aux=rbind(dot_product[1:43,],rep(-1,83),dot_product[44:83,])
-aux=cbind(aux[,1:43],rep(-1,84),aux[,44:83])
-aux[44,44]=1
-colnames(aux)[44]="MDA-MB-175-VII"
-rownames(aux)[44]="MDA-MB-175-VII"
-dot_product=aux
-# Add NCI-H1437
-aux=rbind(dot_product[1:52,],rep(-1,84),dot_product[53:84,])
-aux=cbind(aux[,1:52],rep(-1,85),aux[,53:84])
-aux[53,53]=1
-colnames(aux)[53]="NCI-H1437"
-rownames(aux)[53]="NCI-H1437"
-dot_product=aux
 write.table(dot_product,file="../../data/round2/kernels/dot_product_genex_filtered.txt",
             col.names=F,row.names=F,sep="\t",quote=F)
 
