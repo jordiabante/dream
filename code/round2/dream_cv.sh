@@ -12,7 +12,7 @@ if [ $# -eq 0 ]
         exit 1
 fi
 
-TEMP=$(getopt -o ht:r: -l help,threads:,round: -n "$script_name.sh" -- "$@")
+TEMP=$(getopt -o ht:o:r: -l help,threads:,outfile:,round: -n "$script_name.sh" -- "$@")
 
 if [ $? -ne 0 ] 
 then
@@ -26,6 +26,7 @@ eval set -- "$TEMP"
 # Defaults
 threads=2
 round=2
+outfile="cross_validation.txt"
 
 while true
 do
@@ -36,6 +37,10 @@ do
       ;;  
     -t|--threads)  
       threads="$2"
+      shift 2
+      ;;  
+    -o|--outfile)  
+      outfile="$2"
       shift 2
       ;;  
     -r|--round)  
@@ -60,8 +65,6 @@ suffixes="$1"
 export round
 
 cat "${suffixes}" | xargs -i -n 1 --max-proc "${threads}" bash -c \
-	'./R/synergy_score.R ../../data/round${round}/kernel_train_test/kernel_train_{} \
+	'./R/cross_validation_one_time.R ../../data/round${round}/kernel_train_test/kernel_train_{} \
 	../../data/round${round}/kernel_train_test/kernel_test_{}' \
-	1> ../../data/round2/cross_validation.txt  2>"${script_name}.log"
-    
-
+	1> ../../data/round2/${outfile}  2>"${script_name}.log"
