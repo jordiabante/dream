@@ -121,7 +121,7 @@ for(l in 1: length(nu_range)){
 C_best <- C_range[best_index_C]
 eps_best <- eps_range[best_index_eps]
 nu_best <- nu_range[best_index_nu]
-ksvr_err <- bes_max
+ksvr_err <- best_max
 ########################################################### cross validation for klr ##################################
 
 best_max <- 10000000
@@ -153,7 +153,7 @@ for(l in 1: length(lambda_range)){
   }
 }
 lamda_best <- lambda_range[best_index_lambda]
-krrr_err <- bes_max
+krrr_err <- best_max
 output <- cbind(kernel_train_path,eps_best,C_best,nu_best,round(ksvr_err),lamda_best,round(krrr_err))
 write.table(output,stdout(),sep="\t",row.names=F,col.names=F,quote=F)
 
