@@ -60,10 +60,8 @@ suffixes="$1"
 export round
 
 cat "${suffixes}" | xargs -i -n 1 --max-proc "${threads}" bash -c \
-	'./R/whatever.R ../../data/round${round}/kernels_train_test/kernel_train_{} \
-	../../data/round${round}/kernels_train_test/kernel_test_{}' \
-	1>> ../../data/round2/cross_validation.txt  2>>"${script_name}.log"
-#	'echo ../../data/round${round}/kernels_train_test/kernel_train_{}' \
-#	1>> ../../data/round2/cross_validation.txt  2>>"${script_name}.log"
+	'./R/synergy_score.R ../../data/round${round}/kernel_train_test/kernel_train_{} \
+	../../data/round${round}/kernel_train_test/kernel_test_{}' \
+	1> ../../data/round2/cross_validation.txt  2>"${script_name}.log"
     
 
