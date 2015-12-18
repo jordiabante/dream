@@ -1,0 +1,2 @@
+angular_similarity_drug_pathway_angular_similarity_mutations_original	0.001	70	0.6	630	0.8	640
+angular_similarity_drug_pathway_angular_similarity_cnv	0.001	60	0.4	630	0.5	631

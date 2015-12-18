@@ -44,9 +44,9 @@ for(i in 1:nrow(parameter)){
   score_validation_train <- kernel_train_new %*% solve(lambda * diag(nrow(kernel_train_new)) + kernel_train_new) %*% label_train
   validation_error_krr <-sum((score_validation-label_validation)^2)/length(label_validation)
   synergy_score_matrix[,2*i] <- rbind(score_validation,score_validation_train)
-  
 }
 write.table(synergy_score_matrix,"../../../data/round2/predictor_matrix.txt",sep="\t",col.names = T,row.names = F,quote = F)
-
-
+train_score_shuffle <- as.data.frame(train_score[random_set,1])
+colnames(train_score_shuffle) <- c("response")
+write.table(train_score_shuffle,"../../../data/round2/train_score_shuffle.txt",sep="\t",col.names = T,row.names = F,quote = F)
 
