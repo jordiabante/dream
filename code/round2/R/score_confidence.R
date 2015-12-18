@@ -21,7 +21,8 @@ for( i in 1:length(drug_comb))
     f=approxfun(z$x, z$y, yleft = 0, yright = 0)
     conf_score=integrate(f, median_dc-1,median_dc+1)
     if(conf_score$value>1){conf_score$value=1}
-    out=rbind(out,c(drug_comb[i],median_dc,conf_score$value))
+    out=rbind(out,c(drug_comb[i],conf_score$value))
 }
-
-write.table(out,file=outfile,sep=",",quote=F,row.names=F)
+out=as.data.frame(out)
+colnames(out)=c("COMBINATION_ID","CONFIDENCE")
+write.table(out,file=outfile,sep=",",quote=F,col.names=T,row.names=F)
