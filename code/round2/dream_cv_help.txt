@@ -10,7 +10,7 @@ Options:
     -o--outfile              	Output file name. Default: cross_validation.txt.
 
 Examples:
-    dream_cv.sh -t 5 -- file.txt
+    dream_cv.sh -t 5 -- suffixes.txt
 
 Dependancies:
     cross_validation_one_time.R 
