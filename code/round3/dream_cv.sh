@@ -12,7 +12,7 @@ if [ $# -eq 0 ]
         exit 1
 fi
 
-TEMP=$(getopt -o ht:o:r: -l help,threads:,outfile:,round: -n "$script_name.sh" -- "$@")
+TEMP=$(getopt -o ht:o:a:r: -l help,threads:,outdir:,algorithm:,round: -n "$script_name.sh" -- "$@")
 
 if [ $? -ne 0 ] 
 then
@@ -25,8 +25,8 @@ eval set -- "$TEMP"
 
 # Defaults
 threads=2
-round=2
-outfile="cross_validation_product_opt.txt"
+round=3
+algorithm="ridge"
 
 while true
 do
@@ -39,8 +39,12 @@ do
       threads="$2"
       shift 2
       ;;  
-    -o|--outfile)  
-      outfile="$2"
+    -o|--outdir)  
+      outdir="$2"
+      shift 2
+      ;;  
+    -a|--algorithm)  
+      algorithm="$2"
       shift 2
       ;;  
     -r|--round)  
@@ -61,10 +65,17 @@ done
 # Input
 suffixes="$1"
 
+# Output
+outdir="${outdir}/${algorithm}"
+
+mkdir -p "$outdir"
+
 # Run cross-validation in parallel
 export round
+export algorithm
 
 cat "${suffixes}" | xargs -i -n 1 --max-proc "${threads}" bash -c \
-	'./R/cross_validation_one_time.R ../../data/round${round}/kernel_train_test_product/kernel_train_{} \
+	'./R/${algorithm}_cross_validation_parameter.R \
+	../../data/round${round}/kernel_train_test_product/kernel_train_{} \
 	../../data/round${round}/kernel_train_test_product/kernel_test_{}' \
-	1> ../../data/round2/${outfile}  2>"${script_name}.log"
+	1> ${outdir}/{}_${algorithm}_cv.txt
