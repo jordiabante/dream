@@ -73,9 +73,10 @@ mkdir -p "$outdir"
 # Run cross-validation in parallel
 export round
 export algorithm
+export outdir
 
 cat "${suffixes}" | xargs -i -n 1 --max-proc "${threads}" bash -c \
 	'./R/${algorithm}_cross_validation_parameter.R \
 	../../data/round${round}/kernel_train_test_product/kernel_train_{} \
 	../../data/round${round}/kernel_train_test_product/kernel_test_{} \
-	1> ${outdir}/{}_${algorithm}_cv.txt'
+	1> ${outdir}/${algorithm}_cv_{}'
