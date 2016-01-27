@@ -6,7 +6,7 @@ file=args[1]
 outfile=args[2]
 
 # Read in data
-x=read.table(file,sep="\t",header=T)
+x=read.table(file,sep=",",header=T)
 drug_comb=levels(x[,2])
 
 # Loop through all drug combinations
