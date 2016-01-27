@@ -1,2 +1,0 @@
-angular_similarity_drug_target_dot_product_mutations_driver	0.001	10	0.6	674	2	677
-angular_similarity_drug_target_angular_similarity_cnv	0.001	40	0.6	677	1	678
