@@ -62,6 +62,5 @@ wait %1 %2 %3 %4 %5 %6 %7|| exit $?
 
 # Run general kernels for training and test data
 ./R/kernel_general.R
-./R/submitting.R
     
 
