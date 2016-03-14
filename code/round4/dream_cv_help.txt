@@ -1,0 +1,25 @@
+Description:
+    Wrapper to run cross-validation in parallel.
+
+Usage:
+	dream_cv.sh  [OPTIONS]  -- SUFFIXES_FILE
+
+Options:
+    -h--help                 	Help.
+    -t--threads              	# threads. Default: 2.
+    -o--outdir              	Output directory.
+    -a--algorithm              	Algorithm used (Rscript preffix). Default: 'ridge'
+	
+Examples:
+    dream_cv.sh -t 5 -a svr -o ../../data/round3/cv -- suffix_file.txt
+
+Dependancies:
+    ridge_cross_validation_parameter.R 
+    svr_cross_validation_parameter.R 
+
+Date:
+    2016/01/20
+
+Author:
+    Jordi Abante <abante.jordi@gmail.com>
+    https://jordiabante.wordpress.com
