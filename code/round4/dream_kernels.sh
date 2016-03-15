@@ -48,6 +48,13 @@ do
   esac
 done
 
+# Retrieve data
+./R/retireve_data.R
+
+# Compress files
+gzip ../../data/originals/gex.csv
+gzip ../../data/originals/cnv_segment.csv
+gzip ../../data/originals/mutations.csv
 
 # Run all R scripts to obtain kernels in parallel
 ./R/kernel_genex.R &
